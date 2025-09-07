@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ATTENDEASE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="app-name">ATTENDEASE</h1>
+        <p class="subtitle">Welcome! Please select your role:</p>
+        <div class="buttons">
+            <a href="{{ url_for('teacher_dashboard') }}" class="btn">Teacher</a>
+            <a href="{{ url_for('student_login') }}" class="btn">Student</a>
+        </div>
+    </div>
+    <footer>© 2025 Khyati Singh</footer>
+</body>
+</html>

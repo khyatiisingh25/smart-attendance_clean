@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ATTENDEASE - {{ student.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="app-name">ATTENDEASE</h1>
+        <h2 class="subtitle">Welcome, {{ student.name }}!</h2>
+
+        {% if message %}
+        <p class="message">{{ message }}</p>
+        {% endif %}
+
+        <h3>Mark Attendance (Disabled for Students)</h3>
+        <div class="attendance-buttons">
+            <button disabled>Fingerprint</button>
+            <button disabled>Face Recognition</button>
+        </div>
+
+        <h3>Attendance Report</h3>
+        {% for subject in subjects %}
+            <h4>{{ subject.full_name }} ({{ subject.subject_code }})</h4>
+            <table class="attendance-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set attended = 0 %}
+                    {% set total = 0 %}
+                    {% for date, records in attendance.get(subject.subject_code, {}).items() %}
+                        {% if records.get(student.class_roll_no) %}
+                        {% set record = records[student.class_roll_no] %}
+                        <tr>
+                            <td>{{ record.date }}</td>
+                            <td>{{ record.status }}</td>
+                        </tr>
+                        {% if record.status == 'Present' %}
+                            {% set attended = attended + 1 %}
+                        {% endif %}
+                        {% set total = total + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p>Classes Attended: {{ attended }} / {{ total }} ({{ '%.2f' % ((attended/total*100) if total>0 else 0) }}%)</p>
+        {% endfor %}
+
+        <h3>Total Attendance Summary</h3>
+        {% set total_attended = 0 %}
+        {% set total_classes = 0 %}
+        {% for subject in subjects %}
+            {% for date, records in attendance.get(subject.subject_code, {}).items() %}
+                {% if records.get(student.class_roll_no) %}
+                    {% set record = records[student.class_roll_no] %}
+                    {% if record.status == 'Present' %}
+                        {% set total_attended = total_attended + 1 %}
+                    {% endif %}
+                    {% set total_classes = total_classes + 1 %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        <p>Total Attended: {{ total_attended }} / {{ total_classes }} ({{ '%.2f' % ((total_attended/total_classes*100) if total_classes>0 else 0) }}%)</p>
+
+        <footer>© 2025 Khyati Singh</footer>
+    </div>
+</body>
+</html>

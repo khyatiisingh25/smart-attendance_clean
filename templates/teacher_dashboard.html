@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ATTENDEASE - Teacher Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="app-name">ATTENDEASE</h1>
+        <p class="subtitle">Mark Attendance</p>
+
+        {% if message %}
+        <p class="message">{{ message }}</p>
+        {% endif %}
+
+        <!-- Attendance Form -->
+        <form method="POST" class="attendance-form">
+            <label for="roll_no">Class Roll Number:</label>
+            <input type="text" name="roll_no" required>
+
+            <label for="subject">Select Subject:</label>
+            <select name="subject" required>
+                {% for subj in subjects %}
+                <option value="{{ subj.subject_code }}">{{ subj.full_name }} ({{ subj.subject_code }})</option>
+                {% endfor %}
+            </select>
+
+            <label for="status">Status:</label>
+            <select name="status" required>
+                <option value="P">Present</option>
+                <option value="A">Absent</option>
+            </select>
+
+            <button type="submit" class="btn">Mark Attendance</button>
+        </form>
+
+        <!-- Attendance Records -->
+        <h2>Attendance Records</h2>
+        {% for subj in subjects %}
+            <h3>{{ subj.full_name }} ({{ subj.subject_code }})</h3>
+            {% set records = attendance.get(subj.subject_code, {}) %}
+            {% if records %}
+                <table>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                    {% for roll, data in records.items() %}
+                    <tr>
+                        <td>{{ roll }}</td>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.status }}</td>
+                        <td>{{ data.date }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>No attendance marked yet.</p>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Total Attendance Percentage -->
+        <h2>Total Attendance %</h2>
+        {% for subj in subjects %}
+            {% set records = attendance.get(subj.subject_code, {}) %}
+            {% set total = records|length %}
+            {% set present = records|selectattr("status", "equalto", "Present")|list|length %}
+            {% set percent = (present / total * 100) if total > 0 else 0 %}
+            <p>{{ subj.full_name }}: {{ percent }}%</p>
+        {% endfor %}
+
+        <!-- Disabled Biometric Buttons -->
+        <div class="disabled-buttons">
+            <button disabled>Fingerprint (Disabled)</button>
+            <button disabled>Face Recognition (Disabled)</button>
+        </div>
+    </div>
+
+    <footer>© 2025 Khyati Singh</footer>
+</body>
+</html>

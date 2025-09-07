@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Attendance Report</h1>
+
+        {% for subject in subjects %}
+            <h2>{{ subject.full_name }} ({{ subject.subject_code }})</h2>
+            <table>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+                {% for date, records in attendance.items() %}
+                    {% for roll_no, info in records.items() %}
+                        {% if info.name %}
+                        {% if info.get('subject_code') == subject.subject_code or subject.subject_code in attendance %}
+                        <tr>
+                            <td>{{ roll_no }}</td>
+                            <td>{{ info.name }}</td>
+                            <td>{{ info.status }}</td>
+                            <td>{{ info.get('date', date) }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        {% endfor %}
+
+        <a href="{{ url_for('index') }}" class="btn back">Back to Home</a>
+    </div>
+    <footer>© 2025 Khyati Singh</footer>
+</body>
+</html>

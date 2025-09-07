@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ATTENDEASE - Teacher Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="app-name">ATTENDEASE</h1>
+        <p class="subtitle">Mark Student Attendance</p>
+
+        {% if message %}
+            <p class="success">{{ message }}</p>
+        {% endif %}
+
+        <form method="POST" class="attendance-form">
+            <label for="roll_no">Student Roll No / University ID:</label>
+            <input type="text" id="roll_no" name="roll_no" placeholder="Enter Roll or University ID" required>
+
+            <label for="subject">Select Subject:</label>
+            <select id="subject" name="subject" required>
+                {% for subj in subjects %}
+                    <option value="{{ subj.subject_code }}">{{ subj.full_name }} ({{ subj.subject_code }})</option>
+                {% endfor %}
+            </select>
+
+            <label for="status">Attendance Status:</label>
+            <select id="status" name="status" required>
+                <option value="P">Present</option>
+                <option value="A">Absent</option>
+            </select>
+
+            <button type="submit" class="btn">Mark Attendance</button>
+        </form>
+
+        <div class="disabled-options">
+            <p>Other marking options (disabled):</p>
+            <button class="btn" disabled>Fingerprint</button>
+            <button class="btn" disabled>Face Recognition</button>
+        </div>
+
+        <a href="{{ url_for('report') }}" class="btn back">View Full Report</a>
+    </div>
+
+    <footer>© 2025 Khyati Singh</footer>
+</body>
+</html>

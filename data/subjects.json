@@ -1,0 +1,11 @@
+[
+  { "subject_code": "NHS4302", "subject_name": "IS", "full_name": "Industrial Sociology" },
+  { "subject_code": "NBS4301", "subject_name": "CAIT", "full_name": "Computerlex Analysis and Integrated Transforms" },
+  { "subject_code": "NCS4301", "subject_name": "DM", "full_name": "Discrete Mathematics" },
+  { "subject_code": "NCS4302", "subject_name": "DSUC", "full_name": "Data Structures using C" },
+  { "subject_code": "NCS4303", "subject_name": "DLD", "full_name": "Digital Logic Design" },
+  { "subject_code": "NAI4302", "subject_name": "AIMS", "full_name": "Artificial Intelligence in Mechanical Engineering Systems" },
+  { "subject_code": "NCC5351", "subject_name": "Yoga", "full_name": "Yoga" },
+  { "subject_code": "NCS4352", "subject_name": "DS Lab", "full_name": "Data Structures Laboratory" },
+  { "subject_code": "NCS4353", "subject_name": "DLD Lab", "full_name": "Digital Logic Design Laboratory" }
+]

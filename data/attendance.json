@@ -1,0 +1,32 @@
+{
+    "NHS4302": {
+        "31": {
+            "name": "AYUSH VERMA",
+            "status": "Absent",
+            "date": "2025-09-07"
+        },
+        "17": {
+            "name": "ANJALI KUMARI",
+            "status": "Present",
+            "date": "2025-09-07"
+        }
+    },
+    "NBS4301": {},
+    "NCS4301": {},
+    "NCS4302": {},
+    "NCS4303": {},
+    "NAI4302": {},
+    "NCC5351": {},
+    "NCS4352": {},
+    "NCS4353": {},
+    "2025-09-07": {
+        "39": {
+            "name": "KHYATI SINGH",
+            "status": "Present"
+        },
+        "37": {
+            "name": "HARSHIT SRIVASTAVA",
+            "status": "Present"
+        }
+    }
+}

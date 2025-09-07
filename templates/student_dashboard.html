@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ student.name }}</h1>
+        <p>Roll Number: {{ student.roll_no }}</p>
+
+        <p>Mark your attendance (Fingerprint/Face only – currently disabled)</p>
+
+        {% if message %}
+            <p class="success">{{ message }}</p>
+        {% endif %}
+
+        <form method="POST">
+            <label for="subject">Select Subject:</label>
+            <select id="subject" name="subject" required>
+                {% for sub in subjects %}
+                    <option value="{{ sub.subject_code }}">{{ sub.full_name }} ({{ sub.subject_code }})</option>
+                {% endfor %}
+            </select>
+
+            <label for="status">Status:</label>
+            <select name="status" id="status" required>
+                <option value="P">Present</option>
+                <option value="A">Absent</option>
+            </select>
+
+            <button type="submit" class="btn">Mark Attendance</button>
+        </form>
+
+        <a href="{{ url_for('report') }}" class="btn back">View Attendance Report</a>
+        <a href="{{ url_for('index') }}" class="btn back">Back to Home</a>
+    </div>
+    <footer>© 2025 Khyati Singh</footer>
+</body>
+</html>

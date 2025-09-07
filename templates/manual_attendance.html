@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manual Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Manual Attendance (Teacher)</h1>
+        {% if message %}
+            <p style="color:green">{{ message }}</p>
+        {% endif %}
+        <form method="POST">
+            <label for="roll_no">Enter Class Roll Number:</label>
+            <input type="text" name="roll_no" id="roll_no" placeholder="Class Roll Number" required>
+
+            <label for="status">Status:</label>
+            <select name="status" id="status" required>
+                <option value="P">Present</option>
+                <option value="A">Absent</option>
+            </select>
+
+            <button type="submit" class="btn">Submit Attendance</button>
+        </form>
+
+        <p>Mark by:</p>
+        <a href="#" class="btn">By Name</a>
+        <a href="#" class="btn btn-disabled">Fingerprint (Disabled)</a>
+        <a href="#" class="btn btn-disabled">Face Recognition (Disabled)</a>
+
+        <a href="{{ url_for('index') }}" class="btn">Back</a>
+    </div>
+    <div class="footer">Khyati Singh</div>
+</body>
+</html>
